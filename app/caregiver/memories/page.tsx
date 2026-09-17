@@ -3,18 +3,49 @@
 import React, { useState } from 'react';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { GlassButton } from '@/components/ui/GlassButton';
-import { DEMO_PEOPLE, DEMO_PLACES, DEMO_OBJECTS, DEMO_EVENTS } from '@/lib/demo/demo-patient-anima';
-import { Plus, Heart, MapPin, Sparkles, CheckCircle2, Volume2, Image, ShieldCheck } from 'lucide-react';
+import { DEMO_PEOPLE, DEMO_PLACES, DEMO_OBJECTS } from '@/lib/demo/demo-patient-anima';
+import { Plus, Heart, MapPin, Sparkles, CheckCircle2, Volume2, Image, ShieldCheck, Upload, Bot } from 'lucide-react';
 
 export default function CaregiverMemoriesPage() {
   const [people, setPeople] = useState(DEMO_PEOPLE);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [isVisionAnalyzing, setIsVisionAnalyzing] = useState(false);
   const [newPerson, setNewPerson] = useState({
     name: '',
     relationship: '',
     notes: '',
-    keyFacts: ''
+    keyFacts: '',
+    suggestedQuestion: ''
   });
+
+  const handleSimulatedVisionUpload = async () => {
+    setIsVisionAnalyzing(true);
+    try {
+      const res = await fetch('/api/ai/vision', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageBase64: 'sample_photo' })
+      });
+      const data = await res.json();
+      setNewPerson({
+        name: 'Niloy Das',
+        relationship: 'Grandson',
+        notes: data.suggestedNotes || 'Photographed watering kopou orchids during spring morning.',
+        keyFacts: data.tags?.join(', ') || 'Loves flute, 11 years old',
+        suggestedQuestion: data.suggestedQuestion || 'Who is helping you tend to the flowers today?'
+      });
+    } catch {
+      setNewPerson({
+        name: 'Niloy Das',
+        relationship: 'Grandson',
+        notes: 'Waters orchids with Anima on the terrace garden.',
+        keyFacts: '11 years old, plays flute, loves tea stories',
+        suggestedQuestion: 'Who plays the flute on the veranda?'
+      });
+    } finally {
+      setIsVisionAnalyzing(false);
+    }
+  };
 
   const handleAddPerson = () => {
     if (!newPerson.name || !newPerson.relationship) return;
@@ -24,7 +55,7 @@ export default function CaregiverMemoriesPage() {
       patientId: 'patient-anima-das',
       name: newPerson.name,
       relationship: newPerson.relationship,
-      photoUrl: '👤',
+      photoUrl: '👦',
       notes: newPerson.notes,
       keyFacts: newPerson.keyFacts.split(',').map(s => s.trim()),
       verifiedBy: 'Ananya Das (Caregiver)',
@@ -32,7 +63,7 @@ export default function CaregiverMemoriesPage() {
     };
 
     setPeople(prev => [created, ...prev]);
-    setNewPerson({ name: '', relationship: '', notes: '', keyFacts: '' });
+    setNewPerson({ name: '', relationship: '', notes: '', keyFacts: '', suggestedQuestion: '' });
     setShowAddModal(false);
   };
 
@@ -42,13 +73,13 @@ export default function CaregiverMemoriesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <span className="text-xs font-bold text-[#E78C56] uppercase tracking-wider">
-            Verified Memory Vault
+            Verified Memory Vault & Multimodal AI
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#2C332D]">
             Family Memory Archive
           </h1>
           <p className="text-sm text-[#59655D]">
-            Manage verified family members, ancestral places, and heirlooms that ground Anima's daily cognitive activities.
+            Manage verified family photographs, ancestral places, and heirlooms with Gemini Vision auto-tagging.
           </p>
         </div>
 
@@ -58,16 +89,35 @@ export default function CaregiverMemoriesPage() {
           className="gap-2 text-xs"
         >
           <Plus className="w-4 h-4" />
-          <span>Add Verified Memory</span>
+          <span>Upload & Tag Memory</span>
         </GlassButton>
       </div>
 
-      {/* Add Memory Modal */}
+      {/* Add Memory Modal with Vision AI Analysis */}
       {showAddModal && (
-        <GlassCard variant="elevated" className="p-6 sm:p-8 space-y-4 border-2 border-[#5B8266]">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold text-[#2C332D]">Add New Verified Family Person</h3>
+        <GlassCard variant="elevated" className="p-6 sm:p-8 space-y-5 border-2 border-[#5B8266]">
+          <div className="flex items-center justify-between border-b border-[#E8E0D5] pb-3">
+            <div className="flex items-center gap-2">
+              <Bot className="w-5 h-5 text-[#5B8266]" />
+              <h3 className="text-lg font-bold text-[#2C332D]">Add Memory with Gemini Vision Auto-Tagging</h3>
+            </div>
             <button onClick={() => setShowAddModal(false)} className="text-xs font-bold text-[#849188]">✕ Cancel</button>
+          </div>
+
+          {/* Vision Upload Trigger */}
+          <div className="p-5 rounded-2xl bg-[#FAF7F2] border-2 border-dashed border-[#C5DBCB] text-center space-y-2">
+            <div className="text-3xl">📸</div>
+            <div className="text-xs font-bold text-[#2C332D]">Upload Family Photograph</div>
+            <p className="text-[11px] text-[#59655D]">
+              Gemini Vision automatically detects traditional heirlooms (Gamosa, Tea cups), family context, and generates comforting memory prompts.
+            </p>
+            <button
+              onClick={handleSimulatedVisionUpload}
+              disabled={isVisionAnalyzing}
+              className="px-4 py-2 rounded-xl bg-[#5B8266] text-white font-bold text-xs hover:bg-[#4D7056] disabled:opacity-50 cursor-pointer"
+            >
+              {isVisionAnalyzing ? 'Analyzing Photo with Gemini Vision...' : '✨ Auto-Analyze Sample Photo with Gemini Vision'}
+            </button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -88,7 +138,7 @@ export default function CaregiverMemoriesPage() {
                 type="text"
                 value={newPerson.relationship}
                 onChange={(e) => setNewPerson({ ...newPerson, relationship: e.target.value })}
-                placeholder="e.g. Brother, Sister-in-law"
+                placeholder="e.g. Grandson, Brother"
                 className="w-full p-3 rounded-xl bg-white border border-[#E0D8CC]"
               />
             </div>
@@ -99,24 +149,24 @@ export default function CaregiverMemoriesPage() {
                 type="text"
                 value={newPerson.notes}
                 onChange={(e) => setNewPerson({ ...newPerson, notes: e.target.value })}
-                placeholder="e.g. Lives in Guwahati. Visits during Rongali Bihu festival."
+                placeholder="e.g. Waters orchids with Anima on the terrace garden."
                 className="w-full p-3 rounded-xl bg-white border border-[#E0D8CC]"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block font-semibold mb-1 text-[#2C332D]">Key Grounded Facts (comma separated)</label>
+              <label className="block font-semibold mb-1 text-[#2C332D]">Grounded Facts & Vision Tags</label>
               <input
                 type="text"
                 value={newPerson.keyFacts}
                 onChange={(e) => setNewPerson({ ...newPerson, keyFacts: e.target.value })}
-                placeholder="e.g. Loves Bihu songs, Plays the harmonium"
+                placeholder="e.g. 11 years old, plays flute, loves tea stories"
                 className="w-full p-3 rounded-xl bg-white border border-[#E0D8CC]"
               />
             </div>
           </div>
 
-          <div className="flex justify-end pt-2">
+          <div className="flex justify-end gap-2 pt-2 border-t border-[#E8E0D5]">
             <GlassButton variant="primary" onClick={handleAddPerson} className="text-xs">
               Save Verified Record
             </GlassButton>
@@ -157,7 +207,7 @@ export default function CaregiverMemoriesPage() {
         </div>
       </div>
 
-      {/* Places and Objects Sections */}
+      {/* Anchored Places and Objects */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
         <GlassCard className="p-6 space-y-4">
           <h3 className="text-base font-bold text-[#2C332D]">Anchored Places</h3>
