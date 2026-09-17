@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #FAF7F2;
+    --bg-ivory: #FDFBF7;
+    --bg-cream: #F5EFEB;
+    --text-primary: #2C332D;
+    --text-secondary: #59655D;
+    --text-muted: #849188;
+    
+    /* Warm Accessible Accents */
+    --accent-sage: #5B8266;
+    --accent-sage-light: #EBF2EC;
+    --accent-sage-dark: #3F5E47;
+    
+    --accent-peach: #E78C56;
+    --accent-peach-light: #FDF1EA;
+    
+    --accent-coral: #D9654B;
+    --accent-coral-light: #FDEEEA;
+    
+    --accent-lavender: #8E778E;
+    --accent-lavender-light: #F3EEF3;
+    
+    --accent-terracotta: #B85D43;
+    --accent-amber: #D9A036;
+    --accent-amber-light: #FEF6E7;
+    
+    /* Glass tokens */
+    --glass-bg: rgba(255, 255, 255, 0.76);
+    --glass-bg-subtle: rgba(255, 255, 255, 0.55);
+    --glass-bg-elevated: rgba(255, 255, 255, 0.90);
+    --glass-border: rgba(255, 255, 255, 0.85);
+    --glass-border-warm: rgba(226, 218, 206, 0.65);
+    --glass-shadow: 0 10px 30px -5px rgba(60, 50, 40, 0.06), 0 4px 12px -2px rgba(60, 50, 40, 0.03);
+    --glass-shadow-elevated: 0 20px 40px -10px rgba(60, 50, 40, 0.09), 0 8px 20px -4px rgba(60, 50, 40, 0.04);
+  }
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphic classes */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 24px;
+}
+
+.glass-panel-elevated {
+  background: var(--glass-bg-elevated);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-elevated);
+  border-radius: 28px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border-warm);
+  box-shadow: var(--glass-shadow);
+  border-radius: 22px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glass-shadow-elevated);
+  border-color: rgba(91, 130, 102, 0.3);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--glass-border-warm);
+  box-shadow: 0 2px 6px rgba(60, 50, 40, 0.04);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.glass-button:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(60, 50, 40, 0.08);
+}
+
+/* Patient Tactile Elements */
+.patient-btn {
+  min-height: 64px;
+  min-width: 64px;
+  border-radius: 24px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 6px 16px rgba(60, 50, 40, 0.06);
+  cursor: pointer;
+  user-select: none;
+}
+
+.patient-btn:active {
+  transform: scale(0.97);
+}
+
+/* Custom Soft Animations */
+@keyframes softPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes warmBreathe {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(91, 130, 102, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(231, 140, 86, 0.35);
+  }
+}
+
+.animate-soft-pulse {
+  animation: softPulse 3s ease-in-out infinite;
+}
+
+.animate-gentle-float {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+.animate-warm-breathe {
+  animation: warmBreathe 4s ease-in-out infinite;
+}
+
+/* Custom Scrollbar for Warm Aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(245, 239, 235, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(180, 170, 160, 0.4);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 130, 120, 0.6);
+}
