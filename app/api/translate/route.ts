@@ -8,37 +8,31 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Text and target language are required.' }, { status: 400 });
     }
 
-    const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY;
-
-    if (!apiKey) {
-      console.warn("GOOGLE_TRANSLATE_API_KEY is not set. Please add it to your .env file.");
-      return NextResponse.json({ error: 'Translation API key is not configured.' }, { status: 500 });
-    }
-
-    // Google Cloud Translation API v2
-    const url = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`;
+    // Use the free undocumented Google Translate API endpoint (client=gtx)
+    // This removes the need for a GOOGLE_TRANSLATE_API_KEY for basic usage.
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLanguage === 'auto' ? 'auto' : sourceLanguage}&tl=${targetLanguage}&dt=t&q=${encodeURIComponent(text)}`;
 
     const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        q: text,
-        source: sourceLanguage === 'auto' ? undefined : sourceLanguage,
-        target: targetLanguage,
-        format: 'text',
-      }),
+      method: 'GET',
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Translation API error:', errorData);
+      console.error('Translation API error:', response.statusText);
       return NextResponse.json({ error: 'Failed to translate text.' }, { status: response.status });
     }
 
     const data = await response.json();
-    const translatedText = data.data.translations[0].translatedText;
+    
+    // The response is an array of arrays, where the first array contains the translated segments.
+    // e.g. [[["नमस्ते", "hello", null, null, 10]], null, "en"]
+    let translatedText = '';
+    if (data && data[0]) {
+      data[0].forEach((segment: any) => {
+        if (segment[0]) translatedText += segment[0];
+      });
+    } else {
+      throw new Error("Unexpected translation response format");
+    }
 
     return NextResponse.json({ translatedText });
   } catch (error) {
