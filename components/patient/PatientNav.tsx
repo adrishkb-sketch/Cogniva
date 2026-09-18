@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Calendar, Image as ImageIcon, MessageCircle, Sprout, LifeBuoy, ArrowLeft } from 'lucide-react';
 import { SyncIndicator } from '@/components/ui/SyncIndicator';
+import { CustomLanguageSelector } from '@/components/patient/CustomLanguageSelector';
 
 export const PatientNav: React.FC = () => {
   const pathname = usePathname();
@@ -39,7 +40,8 @@ export const PatientNav: React.FC = () => {
           )}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <CustomLanguageSelector />
           <SyncIndicator />
           <Link
             href="/patient/help"

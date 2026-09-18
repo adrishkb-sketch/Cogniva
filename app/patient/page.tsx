@@ -88,14 +88,6 @@ export default function PatientHomePage() {
       bgClass: 'bg-[#F3EEF3] hover:bg-[#E9DFE9] border-[#DFD3DF]',
       accentColor: 'text-[#5D4A5D]'
     },
-    {
-      title: 'Translator',
-      subtitle: 'Read or listen in your language',
-      href: '/patient/translator',
-      icon: '🌐',
-      bgClass: 'bg-[#EBF2EC] hover:bg-[#DEEBE0] border-[#C5DBCB]',
-      accentColor: 'text-[#3F5E47]'
-    },
   ];
 
   return (
