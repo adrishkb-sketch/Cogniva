@@ -16,7 +16,7 @@ export class VoiceService {
     return typeof window !== 'undefined' && ('speechSynthesis' in window || 'webkitSpeechRecognition' in window);
   }
 
-  static speak(text: string, lang: string = 'en-US', onEnd?: () => void): void {
+  static async speak(text: string, lang: string = 'en-US', onEnd?: () => void): Promise<void> {
     const synth = this.getSynth();
     if (!synth) {
       if (onEnd) setTimeout(onEnd, 1000);
@@ -26,10 +26,45 @@ export class VoiceService {
     // Cancel prior speech
     synth.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
+    let textToSpeak = text;
+    let targetLangCode = lang;
+
+    // Translate if another language is selected globally
+    try {
+      const getCookie = (name: string) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop()?.split(';').shift();
+        return null;
+      };
+
+      const googtrans = getCookie('googtrans');
+      if (googtrans) {
+        const selectedLang = googtrans.split('/')[2];
+        if (selectedLang && selectedLang !== 'en') {
+          const response = await fetch('/api/translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, sourceLanguage: 'en', targetLanguage: selectedLang }),
+          });
+          if (response.ok) {
+            const data = await response.json();
+            if (data.translatedText) {
+              textToSpeak = data.translatedText;
+              // Map google translate lang code (e.g., 'hi') to TTS voice code (e.g., 'hi-IN')
+              targetLangCode = `${selectedLang}-IN`; 
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.error("Translation for voice failed:", e);
+    }
+
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
     utterance.rate = 0.88; // Calm, deliberate, elderly-friendly pace
     utterance.pitch = 1.0;
-    utterance.lang = lang;
+    utterance.lang = targetLangCode;
 
     // Pick warm voice if available
     const voices = synth.getVoices();
