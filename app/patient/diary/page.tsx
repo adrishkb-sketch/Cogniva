@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '@/components/ui/GlassCard';
-import { Plus, X, Search, Edit3, Trash2, BookOpen, ChevronLeft, Image as ImageIcon, Calendar } from 'lucide-react';
+import { Plus, X, Search, Edit3, Trash2, BookOpen, ChevronLeft, Image as ImageIcon, Calendar, Volume2 } from 'lucide-react';
 import { VoiceService } from '@/lib/voice/voice-service';
 
 type DiaryEntry = {
