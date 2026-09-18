@@ -25,6 +25,22 @@ export default function PatientHomePage() {
       accentColor: 'text-[#B85D43]'
     },
     {
+      title: 'Memory Map',
+      subtitle: 'Journey through your life places',
+      href: '/patient/memory-map',
+      icon: '🗺️',
+      bgClass: 'bg-[#EBF2EC] hover:bg-[#DEEBE0] border-[#C5DBCB]',
+      accentColor: 'text-[#5B8266]'
+    },
+    {
+      title: 'Memory Diary',
+      subtitle: 'Write and save today’s thoughts',
+      href: '/patient/diary',
+      icon: '📝',
+      bgClass: 'bg-[#FEF6E7] hover:bg-[#FDEFCB] border-[#F8D5C2]',
+      accentColor: 'text-[#D9A036]'
+    },
+    {
       title: 'My Day Timeline',
       subtitle: 'See what we did today',
       href: '/patient/day',
