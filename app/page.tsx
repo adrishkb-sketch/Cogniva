@@ -102,35 +102,35 @@ export default function LandingPage() {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 relative z-10 text-center">
-              <motion.div whileHover={{ scale: 1.1, y: -5 }} className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)] transition-all cursor-pointer">
+              <div className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)] transition-all duration-200 hover:-translate-y-1 hover:scale-105 cursor-pointer gpu-layer">
                 <div className="text-3xl mb-2">👵</div>
                 <div className="font-bold text-sm">Person</div>
                 <div className="text-[11px] text-[var(--text-secondary)] mt-1">Anima Das (72)</div>
-              </motion.div>
+              </div>
 
-              <motion.div whileHover={{ scale: 1.1, y: -5 }} className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-purple)] hover:shadow-[var(--shadow-glow-purple)] transition-all cursor-pointer">
+              <div className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-purple)] hover:shadow-[var(--shadow-glow-purple)] transition-all duration-200 hover:-translate-y-1 hover:scale-105 cursor-pointer gpu-layer">
                 <div className="text-3xl mb-2">📖</div>
                 <div className="font-bold text-sm">Memories</div>
                 <div className="text-[11px] text-[var(--text-secondary)] mt-1">Family & Assam Home</div>
-              </motion.div>
+              </div>
 
-              <motion.div whileHover={{ scale: 1.1, y: -5 }} className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-emerald)] hover:shadow-[0_0_15px_rgba(0,255,136,0.3)] transition-all cursor-pointer">
+              <div className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-emerald)] hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-200 hover:-translate-y-1 hover:scale-105 cursor-pointer gpu-layer">
                 <div className="text-3xl mb-2">🧠</div>
                 <div className="font-bold text-sm">Engine</div>
                 <div className="text-[11px] text-[var(--text-secondary)] mt-1">Adaptive Escalator</div>
-              </motion.div>
+              </div>
 
-              <motion.div whileHover={{ scale: 1.1, y: -5 }} className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-orange)] transition-all cursor-pointer">
+              <div className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-orange)] transition-all duration-200 hover:-translate-y-1 hover:scale-105 cursor-pointer gpu-layer">
                 <div className="text-3xl mb-2">☕</div>
                 <div className="font-bold text-sm">Life Sim</div>
                 <div className="text-[11px] text-[var(--text-secondary)] mt-1">Morning Tea Routine</div>
-              </motion.div>
+              </div>
 
-              <motion.div whileHover={{ scale: 1.1, y: -5 }} className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)] col-span-2 sm:col-span-1 transition-all cursor-pointer">
+              <div className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)] col-span-2 sm:col-span-1 transition-all duration-200 hover:-translate-y-1 hover:scale-105 cursor-pointer gpu-layer">
                 <div className="text-3xl mb-2">📊</div>
                 <div className="font-bold text-sm">Caregiver</div>
                 <div className="text-[11px] text-[var(--text-secondary)] mt-1">Change Radar</div>
-              </motion.div>
+              </div>
             </div>
 
             {/* Floating Glass Pills */}

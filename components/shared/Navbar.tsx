@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Heart, Activity, ShieldCheck, Compass, Sparkles, BookOpen } from 'lucide-react';
+import { Heart, Sparkles } from 'lucide-react';
 import { SyncIndicator } from '@/components/ui/SyncIndicator';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
@@ -22,73 +22,76 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[var(--bg-surface)]/85 border-b border-[var(--border-subtle)]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#06090E]/80 border-b border-[var(--border-subtle)] gpu-layer">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[var(--accent-emerald)] to-[var(--accent-orange)] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
-            <Heart className="w-5 h-5 fill-white/80" />
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[var(--accent-cyan)] via-[var(--accent-purple)] to-[var(--accent-emerald)] p-[1px] group-hover:scale-105 transition-transform">
+            <div className="w-full h-full bg-[#0D1117] rounded-[11px] flex items-center justify-center">
+              <Heart className="w-4 h-4 text-[var(--accent-cyan)] fill-[var(--accent-cyan)]/20" />
+            </div>
           </div>
           <div>
-            <span className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Cogniva</span>
-            <span className="hidden sm:block text-[10px] text-[#59655D] font-medium tracking-wide">
+            <span className="text-lg font-extrabold text-[var(--text-primary)] tracking-tight">Cogniva</span>
+            <span className="hidden sm:block text-[10px] text-[var(--text-secondary)] font-medium">
               Cognitive Rehabilitation & Memory Companion
             </span>
           </div>
         </Link>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1.5 text-sm font-medium text-[var(--text-secondary)]">
+        <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-[var(--text-secondary)]">
           <Link
             href="/"
-            className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/') ? 'text-[var(--text-primary)] bg-[var(--bg-panel)] shadow-xs' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
+            className={`px-3.5 py-1.5 rounded-xl transition-all ${
+              isCurrent('/') ? 'text-[var(--text-primary)] bg-white/10 shadow-sm border border-white/10' : 'hover:text-[var(--text-primary)] hover:bg-white/5'
             }`}
           >
             Overview
           </Link>
           <Link
             href="/how-it-works"
-            className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/how-it-works') ? 'text-[var(--text-primary)] bg-[var(--bg-panel)] shadow-xs' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
+            className={`px-3.5 py-1.5 rounded-xl transition-all ${
+              isCurrent('/how-it-works') ? 'text-[var(--text-primary)] bg-white/10 shadow-sm border border-white/10' : 'hover:text-[var(--text-primary)] hover:bg-white/5'
             }`}
           >
             Ecosystem
           </Link>
           <Link
             href="/caregiver"
-            className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/caregiver') ? 'text-[var(--text-primary)] bg-[var(--accent-orange-subtle)] font-semibold' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
+            className={`px-3.5 py-1.5 rounded-xl transition-all ${
+              isCurrent('/caregiver') ? 'text-[var(--accent-purple)] bg-[var(--accent-purple-subtle)] border border-[var(--accent-purple)]/30 font-semibold' : 'hover:text-[var(--text-primary)] hover:bg-white/5'
             }`}
           >
             Caregiver Portal
           </Link>
           <Link
             href="/patient"
-            className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/patient') ? 'text-[var(--text-primary)] bg-[var(--accent-emerald-subtle)] font-semibold' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
+            className={`px-3.5 py-1.5 rounded-xl transition-all ${
+              isCurrent('/patient') ? 'text-[var(--accent-cyan)] bg-[var(--accent-cyan-subtle)] border border-[var(--accent-cyan)]/30 font-semibold' : 'hover:text-[var(--text-primary)] hover:bg-white/5'
             }`}
           >
             Patient Experience
           </Link>
           <Link
             href="/health"
-            className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/health') ? 'text-[var(--text-primary)] bg-[var(--accent-purple-subtle)] font-semibold' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
+            className={`px-3.5 py-1.5 rounded-xl transition-all ${
+              isCurrent('/health') ? 'text-[var(--accent-emerald)] bg-[var(--accent-emerald-subtle)] border border-[var(--accent-emerald)]/30 font-semibold' : 'hover:text-[var(--text-primary)] hover:bg-white/5'
             }`}
           >
             Clinical Reports
           </Link>
         </nav>
 
-        {/* Right CTA / Sync */}
+        {/* Right CTA / Sync / Theme */}
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <SyncIndicator />
           <Link
             href="/onboarding"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--accent-emerald)] text-[var(--bg-main)] text-xs font-bold shadow-xs hover:opacity-80 transition-all"
+            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-purple)] text-[#06090E] text-xs font-bold shadow-[var(--shadow-glow-cyan)] hover:opacity-95 hover:scale-[1.02] transition-all"
           >
+            <Sparkles className="w-3.5 h-3.5" />
             <span>Caregiver Onboarding</span>
           </Link>
         </div>

@@ -1,94 +1,73 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useMemo } from 'react';
 
-export const AnimatedBackground = () => {
-  // Generate random particles for a highly visible starry/dust effect
-  const particles = Array.from({ length: 30 }).map((_, i) => ({
-    id: i,
-    top: `${Math.random() * 100}%`,
-    left: `${Math.random() * 100}%`,
-    size: Math.random() * 4 + 1,
-    duration: Math.random() * 10 + 10,
-    delay: Math.random() * 5,
-  }));
+export const AnimatedBackground = React.memo(() => {
+  // Memoize light ambient dust particles once on mount
+  const particles = useMemo(() => {
+    return Array.from({ length: 14 }).map((_, i) => ({
+      id: i,
+      top: `${(i * 7 + 13) % 100}%`,
+      left: `${(i * 11 + 5) % 100}%`,
+      size: (i % 3) + 1.5,
+      opacity: 0.2 + (i % 5) * 0.1,
+      animationDuration: `${12 + (i % 8) * 3}s`,
+      animationDelay: `${(i % 5) * 2}s`,
+    }));
+  }, []);
 
   return (
-    <div className="fixed inset-0 -z-50 overflow-hidden pointer-events-none bg-[#02050A]">
-      
-      {/* 1. Deep Space/Cloud Gradient Base */}
-      <div 
-        className="absolute inset-0 opacity-80"
+    <div className="fixed inset-0 -z-50 overflow-hidden pointer-events-none bg-[#06090E] gpu-layer">
+      {/* 1. Hardware Accelerated Subtle Radial Orbs */}
+      <div
+        className="absolute -top-[20%] left-[10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full opacity-25 blur-[100px] gpu-layer animate-soft-pulse"
         style={{
-          background: 'radial-gradient(ellipse at 50% -20%, rgba(138,43,226,0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 120%, rgba(0,240,255,0.25) 0%, transparent 60%)'
+          background: 'radial-gradient(circle, rgba(0, 240, 255, 0.35) 0%, rgba(147, 51, 234, 0.15) 50%, transparent 80%)',
+        }}
+      />
+      <div
+        className="absolute -bottom-[20%] right-[5%] w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] rounded-full opacity-20 blur-[120px] gpu-layer animate-gentle-float"
+        style={{
+          background: 'radial-gradient(circle, rgba(147, 51, 234, 0.35) 0%, rgba(16, 185, 129, 0.15) 60%, transparent 80%)',
+        }}
+      />
+      <div
+        className="absolute top-[40%] left-[60%] w-[35vw] h-[35vw] max-w-[450px] max-h-[450px] rounded-full opacity-15 blur-[90px] gpu-layer"
+        style={{
+          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(0, 240, 255, 0.1) 70%, transparent 80%)',
         }}
       />
 
-      {/* 2. Highly Visible Fast-Moving Particles */}
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          className="absolute bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-          style={{ top: p.top, left: p.left, width: p.size, height: p.size }}
-          animate={{
-            y: [0, -100, 0],
-            x: [0, Math.random() * 50 - 25, 0],
-            opacity: [0, 1, 0],
-            scale: [0.5, 1.5, 0.5]
-          }}
-          transition={{
-            duration: p.duration,
-            repeat: Infinity,
-            ease: "linear",
-            delay: p.delay,
-          }}
-        />
-      ))}
-
-      {/* 3. Floating Cloud/Aurora Strips (Increased Opacity & Speed) */}
-      <div className="absolute inset-0 w-full h-full opacity-80 mix-blend-screen">
-        
-        {/* Strip 1 */}
-        <motion.div
-          className="absolute h-[300px] w-[150vw] rounded-full blur-[60px] bg-gradient-to-r from-transparent via-[rgba(0,240,255,0.2)] to-transparent"
-          style={{ top: '10%', left: '-25%', transform: 'rotate(-15deg)' }}
-          animate={{ x: ['-20%', '20%', '-20%'], opacity: [0.4, 0.9, 0.4] }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-        />
-
-        {/* Strip 2 */}
-        <motion.div
-          className="absolute h-[400px] w-[150vw] rounded-full blur-[80px] bg-gradient-to-r from-transparent via-[rgba(138,43,226,0.25)] to-transparent"
-          style={{ top: '40%', left: '-20%', transform: 'rotate(10deg)' }}
-          animate={{ x: ['25%', '-25%', '25%'], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-        />
-
-        {/* Strip 3 */}
-        <motion.div
-          className="absolute h-[250px] w-[120vw] rounded-full blur-[50px] bg-gradient-to-r from-transparent via-[rgba(0,255,136,0.15)] to-transparent"
-          style={{ bottom: '10%', left: '-10%', transform: 'rotate(-5deg)' }}
-          animate={{ x: ['-30%', '30%', '-30%'], opacity: [0.3, 0.8, 0.3] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-        />
-
-        {/* Strip 4 (Vertical-ish for depth) */}
-        <motion.div
-          className="absolute h-[150vh] w-[200px] rounded-full blur-[70px] bg-gradient-to-b from-transparent via-[rgba(0,240,255,0.15)] to-transparent"
-          style={{ left: '30%', top: '-25%', transform: 'rotate(25deg)' }}
-          animate={{ x: ['-60%', '60%', '-60%'], opacity: [0.3, 0.7, 0.3] }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-        />
+      {/* 2. Pure CSS Floating Ambient Particles (Zero JS frame re-render) */}
+      <div className="absolute inset-0">
+        {particles.map((p) => (
+          <div
+            key={p.id}
+            className="absolute rounded-full bg-cyan-300 gpu-layer animate-gentle-float"
+            style={{
+              top: p.top,
+              left: p.left,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              opacity: p.opacity,
+              boxShadow: '0 0 6px rgba(0, 240, 255, 0.6)',
+              animationDuration: p.animationDuration,
+              animationDelay: p.animationDelay,
+            }}
+          />
+        ))}
       </div>
 
-      {/* 4. Subtle Noise Overlay */}
-      <div 
-        className="absolute inset-0 opacity-10 mix-blend-overlay"
+      {/* 3. Subtle Clean Mesh Grid Overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)`,
+          backgroundSize: '32px 32px',
         }}
       />
     </div>
   );
-};
+});
+
+AnimatedBackground.displayName = 'AnimatedBackground';

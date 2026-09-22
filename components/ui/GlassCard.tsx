@@ -16,14 +16,14 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   ...props
 }) => {
   const variantStyles = {
-    default: 'minimal-card p-6',
-    elevated: 'minimal-panel-elevated p-6 md:p-8',
-    subtle: 'bg-[var(--bg-panel)] border border-[var(--border-subtle)] shadow-sm rounded-2xl p-5',
-    patient: 'bg-[var(--bg-surface)] border-2 border-[var(--border-focus)] shadow-md rounded-3xl p-6 md:p-8 hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)] transition-all',
-    'accent-sage': 'bg-[var(--bg-panel)] border border-[var(--accent-emerald-subtle)] shadow-[var(--shadow-glow-cyan)] rounded-2xl p-6',
-    'accent-peach': 'bg-[var(--bg-panel)] border border-[var(--accent-orange-subtle)] shadow-[var(--shadow-glow-purple)] rounded-2xl p-6',
-    'accent-coral': 'bg-[var(--bg-panel)] border border-[var(--border-subtle)] shadow-[var(--shadow-glow-purple)] rounded-2xl p-6',
-    'accent-lavender': 'bg-[var(--bg-panel)] border border-[var(--accent-purple-subtle)] shadow-[var(--shadow-glow-cyan)] rounded-2xl p-6',
+    default: 'minimal-card p-6 gpu-layer',
+    elevated: 'minimal-panel-elevated p-6 md:p-8 gpu-layer',
+    subtle: 'bg-[var(--bg-panel)] border border-[var(--border-subtle)] shadow-sm rounded-2xl p-5 gpu-layer',
+    patient: 'bg-[var(--bg-surface)] border-2 border-[var(--border-focus)] shadow-md rounded-3xl p-6 md:p-8 hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)] transition-all gpu-layer',
+    'accent-sage': 'bg-[var(--bg-panel)] border border-[var(--accent-emerald-subtle)] shadow-[var(--shadow-glow-cyan)] rounded-2xl p-6 gpu-layer',
+    'accent-peach': 'bg-[var(--bg-panel)] border border-[var(--accent-orange-subtle)] shadow-[var(--shadow-glow-purple)] rounded-2xl p-6 gpu-layer',
+    'accent-coral': 'bg-[var(--bg-panel)] border border-[var(--border-subtle)] shadow-[var(--shadow-glow-purple)] rounded-2xl p-6 gpu-layer',
+    'accent-lavender': 'bg-[var(--bg-panel)] border border-[var(--accent-purple-subtle)] shadow-[var(--shadow-glow-cyan)] rounded-2xl p-6 gpu-layer',
   };
 
   return (

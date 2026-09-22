@@ -17,7 +17,7 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
   children,
   ...props
 }) => {
-  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 active:scale-98 disabled:opacity-50 disabled:pointer-events-none cursor-pointer';
+  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 active:scale-98 disabled:opacity-50 disabled:pointer-events-none cursor-pointer gpu-layer';
 
   const variantStyles = {
     primary: 'bg-[var(--bg-surface)] text-[var(--accent-cyan)] hover:bg-[var(--bg-panel)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)]',

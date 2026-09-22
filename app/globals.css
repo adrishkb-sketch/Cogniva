@@ -3,31 +3,32 @@
 @layer base {
   :root, .dark {
     --bg-main: #06090E;
-    --bg-surface: #0D1117;
-    --bg-panel: #161B22;
+    --bg-surface: rgba(13, 17, 23, 0.75);
+    --bg-panel: rgba(22, 27, 34, 0.85);
+    --bg-card: rgba(18, 24, 34, 0.7);
     --text-primary: #F0F6FC;
-    --text-secondary: #8B949E;
-    --text-muted: #484F58;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
     
-    /* Neon Accents */
+    /* Neon & Pastel Accents */
     --accent-cyan: #00F0FF;
-    --accent-cyan-subtle: rgba(0, 240, 255, 0.1);
+    --accent-cyan-subtle: rgba(0, 240, 255, 0.12);
     
-    --accent-purple: #8A2BE2;
-    --accent-purple-subtle: rgba(138, 43, 226, 0.1);
+    --accent-purple: #9333EA;
+    --accent-purple-subtle: rgba(147, 51, 234, 0.12);
     
-    --accent-emerald: #00FF88;
-    --accent-emerald-subtle: rgba(0, 255, 136, 0.1);
+    --accent-emerald: #10B981;
+    --accent-emerald-subtle: rgba(16, 185, 129, 0.12);
 
-    --accent-orange: #FF7300;
-    --accent-orange-subtle: rgba(255, 115, 0, 0.1);
+    --accent-orange: #F59E0B;
+    --accent-orange-subtle: rgba(245, 158, 11, 0.12);
 
-    /* Minimalist tokens */
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-focus: rgba(255, 255, 255, 0.2);
-    --shadow-glow-cyan: 0 0 15px rgba(0, 240, 255, 0.3);
-    --shadow-glow-purple: 0 0 15px rgba(138, 43, 226, 0.3);
-    --shadow-minimal: 0 4px 12px rgba(0, 0, 0, 0.3);
+    /* Glassmorphic & Border tokens */
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --border-focus: rgba(0, 240, 255, 0.35);
+    --shadow-glow-cyan: 0 0 20px rgba(0, 240, 255, 0.2);
+    --shadow-glow-purple: 0 0 20px rgba(147, 51, 234, 0.2);
+    --shadow-minimal: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
   .light {
@@ -63,7 +64,7 @@
 body {
   background-color: var(--bg-main);
   color: var(--text-primary);
-  font-family: 'Algerian', serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -71,9 +72,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Minimalist Panel Classes (Replacing Glassmorphism) */
+/* GPU performance class for smooth 60fps hardware acceleration */
+.gpu-layer {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Glassmorphic & Minimalist Panel Classes */
 .glass-panel, .minimal-panel {
   background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-minimal);
   border-radius: 20px;
@@ -81,22 +90,27 @@ body {
 
 .glass-panel-elevated, .minimal-panel-elevated {
   background: var(--bg-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-focus);
   box-shadow: var(--shadow-glow-cyan);
   border-radius: 24px;
 }
 
 .glass-card, .minimal-card {
-  background: var(--bg-panel);
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-minimal);
   border-radius: 16px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
 }
 
 .glass-card:hover, .minimal-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-cyan);
+  transform: translateY(-3px);
+  border-color: rgba(0, 240, 255, 0.4);
   box-shadow: var(--shadow-glow-cyan);
 }
 
@@ -105,7 +119,7 @@ body {
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
   border-radius: 12px;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
 .glass-button:hover, .minimal-button:hover {
@@ -114,7 +128,11 @@ body {
   box-shadow: var(--shadow-glow-purple);
 }
 
-/* Patient Tactile Elements - Kept large but modernized */
+.glass-button:active, .minimal-button:active {
+  transform: scale(0.98);
+}
+
+/* Patient Tactile Elements - Large, accessible touch targets */
 .patient-btn {
   min-height: 64px;
   min-width: 64px;
@@ -124,7 +142,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease;
   background: var(--bg-panel);
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
@@ -141,14 +159,14 @@ body {
   transform: scale(0.97);
 }
 
-/* Custom Soft Animations */
+/* Custom Soft CSS Animations */
 @keyframes softPulse {
   0%, 100% {
     transform: scale(1);
     opacity: 0.8;
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.03);
     opacity: 1;
   }
 }
@@ -158,43 +176,31 @@ body {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes neonBreathe {
-  0%, 100% {
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(138, 43, 226, 0.3);
+    transform: translateY(-5px);
   }
 }
 
 .animate-soft-pulse {
-  animation: softPulse 3s ease-in-out infinite;
+  animation: softPulse 4s ease-in-out infinite;
 }
 
 .animate-gentle-float {
-  animation: gentleFloat 4s ease-in-out infinite;
-}
-
-.animate-warm-breathe, .animate-neon-breathe {
-  animation: neonBreathe 4s ease-in-out infinite;
+  animation: gentleFloat 5s ease-in-out infinite;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-main);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-focus);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.3);
 }
+

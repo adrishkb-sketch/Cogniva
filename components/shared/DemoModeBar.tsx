@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Wifi, WifiOff, Sparkles, User, HeartPulse, Shield, PlayCircle, Cpu, Key } from 'lucide-react';
+import { Wifi, WifiOff, Sparkles, User, HeartPulse, PlayCircle, Cpu, Key } from 'lucide-react';
 import { OfflineStorageManager } from '@/lib/storage/indexed-db';
 import { NERStateSwitcher } from './NERStateSwitcher';
 import { AlgorithmInspectorModal } from './AlgorithmInspectorModal';
@@ -38,12 +38,12 @@ export const DemoModeBar: React.FC = () => {
 
   return (
     <>
-      <div className="bg-[#2C332D] text-[#FAF7F2] text-xs py-2 px-3 sm:px-6 flex flex-wrap items-center justify-between gap-3 shadow-md border-b border-black/10 z-50 select-none">
+      <div className="bg-[#0B0F17]/90 text-[var(--text-primary)] text-xs py-2 px-3 sm:px-6 flex flex-wrap items-center justify-between gap-3 backdrop-blur-md border-b border-[var(--border-subtle)] z-50 select-none gpu-layer">
         {/* Left section: Sandbox title & NER State Switcher */}
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-          <span className="inline-flex items-center gap-1.5 font-semibold text-[#E78C56] bg-black/30 px-2.5 py-1 rounded-md">
+          <span className="inline-flex items-center gap-1.5 font-bold text-[var(--accent-cyan)] bg-[var(--accent-cyan-subtle)] border border-[var(--accent-cyan)]/20 px-2.5 py-1 rounded-lg">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>KAYA AZMUTH SANDBOX</span>
+            <span className="tracking-wider">COGNIVA SANDBOX</span>
           </span>
 
           {/* 8-State North Eastern Region Switcher */}
@@ -55,30 +55,30 @@ export const DemoModeBar: React.FC = () => {
           {/* ML Algorithm Inspector Button */}
           <button
             onClick={() => setIsInspectorOpen(true)}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium text-[11px] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white font-medium text-[11px] border border-white/10 transition-colors cursor-pointer"
             title="Inspect Live Mathematical Adaptive ML Formulation"
           >
-            <Cpu className="w-3 h-3 text-[#5B8266]" />
+            <Cpu className="w-3 h-3 text-[var(--accent-emerald)]" />
             <span className="hidden md:inline">Adaptive ML Inspector</span>
           </button>
 
           {/* AI Key Config Button */}
           <button
             onClick={() => setIsAIConfigOpen(true)}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium text-[11px] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white font-medium text-[11px] border border-white/10 transition-colors cursor-pointer"
             title="Configure Google Gemini API Key"
           >
-            <Key className="w-3 h-3 text-[#E9C46A]" />
+            <Key className="w-3 h-3 text-[var(--accent-orange)]" />
             <span className="hidden md:inline">AI Keys</span>
           </button>
 
           {/* Network Toggle */}
           <button
             onClick={toggleOffline}
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-medium text-[11px] transition-all cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-semibold text-[11px] border transition-all cursor-pointer ${
               isOffline
-                ? 'bg-[#D9654B] text-white hover:bg-[#C2543B]'
-                : 'bg-[#5B8266] text-white hover:bg-[#4D7056]'
+                ? 'bg-rose-500/20 text-rose-300 border-rose-500/40 hover:bg-rose-500/30'
+                : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/30'
             }`}
             title="Click to toggle offline mode simulation for judging/demo"
           >
@@ -87,11 +87,11 @@ export const DemoModeBar: React.FC = () => {
           </button>
 
           {/* Quick Role Switcher */}
-          <div className="flex items-center bg-white/10 rounded-full p-0.5 text-[11px]">
+          <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5 text-[11px]">
             <Link
               href="/patient"
-              className={`px-2.5 py-0.5 rounded-full transition-colors flex items-center gap-1 ${
-                pathname.startsWith('/patient') ? 'bg-[#5B8266] text-white font-semibold' : 'text-white/70 hover:text-white'
+              className={`px-2.5 py-0.5 rounded-md transition-all flex items-center gap-1 ${
+                pathname.startsWith('/patient') ? 'bg-[var(--accent-cyan)] text-[#06090E] font-bold shadow-sm' : 'text-[var(--text-secondary)] hover:text-white'
               }`}
             >
               <User className="w-3 h-3" />
@@ -99,16 +99,16 @@ export const DemoModeBar: React.FC = () => {
             </Link>
             <Link
               href="/caregiver"
-              className={`px-2.5 py-0.5 rounded-full transition-colors flex items-center gap-1 ${
-                pathname.startsWith('/caregiver') ? 'bg-[#E78C56] text-white font-semibold' : 'text-white/70 hover:text-white'
+              className={`px-2.5 py-0.5 rounded-md transition-all flex items-center gap-1 ${
+                pathname.startsWith('/caregiver') ? 'bg-[var(--accent-purple)] text-white font-bold shadow-sm' : 'text-[var(--text-secondary)] hover:text-white'
               }`}
             >
               <span>Caregiver</span>
             </Link>
             <Link
               href="/health"
-              className={`px-2.5 py-0.5 rounded-full transition-colors flex items-center gap-1 ${
-                pathname.startsWith('/health') ? 'bg-[#8E778E] text-white font-semibold' : 'text-white/70 hover:text-white'
+              className={`px-2.5 py-0.5 rounded-md transition-all flex items-center gap-1 ${
+                pathname.startsWith('/health') ? 'bg-[var(--accent-emerald)] text-[#06090E] font-bold shadow-sm' : 'text-[var(--text-secondary)] hover:text-white'
               }`}
             >
               <HeartPulse className="w-3 h-3" />
@@ -119,7 +119,7 @@ export const DemoModeBar: React.FC = () => {
           {/* 5-Min Guided Demo Launcher */}
           <Link
             href="/demo"
-            className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#E9C46A] text-[#2C332D] font-bold hover:bg-[#DDA15E] transition-colors text-[11px]"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-purple)] text-[#06090E] font-extrabold hover:opacity-90 transition-opacity text-[11px] shadow-sm"
           >
             <PlayCircle className="w-3.5 h-3.5" />
             <span>5-Min Demo</span>
