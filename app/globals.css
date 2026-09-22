@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @layer base {
-  :root {
+  :root, .dark {
     --bg-main: #06090E;
     --bg-surface: #0D1117;
     --bg-panel: #161B22;
@@ -28,6 +28,35 @@
     --shadow-glow-cyan: 0 0 15px rgba(0, 240, 255, 0.3);
     --shadow-glow-purple: 0 0 15px rgba(138, 43, 226, 0.3);
     --shadow-minimal: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .light {
+    --bg-main: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-panel: #F1F5F9;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    
+    /* Neon Accents remain mostly the same to keep the cyan wave cyan */
+    --accent-cyan: #00BCD4; /* slightly deeper for light background visibility */
+    --accent-cyan-subtle: rgba(0, 188, 212, 0.15);
+    
+    --accent-purple: #8A2BE2;
+    --accent-purple-subtle: rgba(138, 43, 226, 0.15);
+    
+    --accent-emerald: #00C853;
+    --accent-emerald-subtle: rgba(0, 200, 83, 0.15);
+
+    --accent-orange: #FF7300;
+    --accent-orange-subtle: rgba(255, 115, 0, 0.15);
+
+    /* Minimalist tokens */
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-focus: rgba(0, 0, 0, 0.2);
+    --shadow-glow-cyan: 0 0 15px rgba(0, 188, 212, 0.4);
+    --shadow-glow-purple: 0 0 15px rgba(138, 43, 226, 0.4);
+    --shadow-minimal: 0 4px 12px rgba(0, 0, 0, 0.05);
   }
 }
 

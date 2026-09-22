@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Heart, Activity, ShieldCheck, Compass, Sparkles, BookOpen } from 'lucide-react';
 import { SyncIndicator } from '@/components/ui/SyncIndicator';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
@@ -21,15 +22,15 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#FAF7F2]/85 border-b border-[#E8E0D5]/70">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[var(--bg-surface)]/85 border-b border-[var(--border-subtle)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#5B8266] to-[#E78C56] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[var(--accent-emerald)] to-[var(--accent-orange)] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
             <Heart className="w-5 h-5 fill-white/80" />
           </div>
           <div>
-            <span className="text-xl font-bold text-[#2C332D] tracking-tight">Cogniva</span>
+            <span className="text-xl font-bold text-[var(--text-primary)] tracking-tight">Cogniva</span>
             <span className="hidden sm:block text-[10px] text-[#59655D] font-medium tracking-wide">
               Cognitive Rehabilitation & Memory Companion
             </span>
@@ -37,11 +38,11 @@ export const Navbar: React.FC = () => {
         </Link>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1.5 text-sm font-medium text-[#59655D]">
+        <nav className="hidden md:flex items-center gap-1.5 text-sm font-medium text-[var(--text-secondary)]">
           <Link
             href="/"
             className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/') ? 'text-[#2C332D] bg-white/70 shadow-xs' : 'hover:text-[#2C332D] hover:bg-white/40'
+              isCurrent('/') ? 'text-[var(--text-primary)] bg-[var(--bg-panel)] shadow-xs' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
             }`}
           >
             Overview
@@ -49,7 +50,7 @@ export const Navbar: React.FC = () => {
           <Link
             href="/how-it-works"
             className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/how-it-works') ? 'text-[#2C332D] bg-white/70 shadow-xs' : 'hover:text-[#2C332D] hover:bg-white/40'
+              isCurrent('/how-it-works') ? 'text-[var(--text-primary)] bg-[var(--bg-panel)] shadow-xs' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
             }`}
           >
             Ecosystem
@@ -57,7 +58,7 @@ export const Navbar: React.FC = () => {
           <Link
             href="/caregiver"
             className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/caregiver') ? 'text-[#2C332D] bg-[#E78C56]/15 text-[#B85D43] font-semibold' : 'hover:text-[#2C332D] hover:bg-white/40'
+              isCurrent('/caregiver') ? 'text-[var(--text-primary)] bg-[var(--accent-orange-subtle)] font-semibold' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
             }`}
           >
             Caregiver Portal
@@ -65,7 +66,7 @@ export const Navbar: React.FC = () => {
           <Link
             href="/patient"
             className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/patient') ? 'text-[#2C332D] bg-[#5B8266]/15 text-[#3F5E47] font-semibold' : 'hover:text-[#2C332D] hover:bg-white/40'
+              isCurrent('/patient') ? 'text-[var(--text-primary)] bg-[var(--accent-emerald-subtle)] font-semibold' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
             }`}
           >
             Patient Experience
@@ -73,7 +74,7 @@ export const Navbar: React.FC = () => {
           <Link
             href="/health"
             className={`px-3.5 py-2 rounded-xl transition-colors ${
-              isCurrent('/health') ? 'text-[#2C332D] bg-[#8E778E]/15 text-[#5D4A5D] font-semibold' : 'hover:text-[#2C332D] hover:bg-white/40'
+              isCurrent('/health') ? 'text-[var(--text-primary)] bg-[var(--accent-purple-subtle)] font-semibold' : 'hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel)]/50'
             }`}
           >
             Clinical Reports
@@ -82,10 +83,11 @@ export const Navbar: React.FC = () => {
 
         {/* Right CTA / Sync */}
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <SyncIndicator />
           <Link
             href="/onboarding"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#5B8266] text-white text-xs font-semibold shadow-xs hover:bg-[#4D7056] transition-all"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--accent-emerald)] text-[var(--bg-main)] text-xs font-bold shadow-xs hover:opacity-80 transition-all"
           >
             <span>Caregiver Onboarding</span>
           </Link>
