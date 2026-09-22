@@ -16,14 +16,14 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   ...props
 }) => {
   const variantStyles = {
-    default: 'glass-card p-6',
-    elevated: 'glass-panel-elevated p-6 md:p-8',
-    subtle: 'bg-white/60 backdrop-blur-md border border-[#E8E0D5]/60 shadow-sm rounded-2xl p-5',
-    patient: 'bg-white/90 backdrop-blur-lg border-2 border-[#E0D8CC] shadow-md rounded-3xl p-6 md:p-8 hover:border-[#5B8266]/50',
-    'accent-sage': 'bg-[#EBF2EC]/80 backdrop-blur-md border border-[#C5DBCB] shadow-sm rounded-2xl p-6',
-    'accent-peach': 'bg-[#FDF1EA]/80 backdrop-blur-md border border-[#F8D5C2] shadow-sm rounded-2xl p-6',
-    'accent-coral': 'bg-[#FDEEEA]/80 backdrop-blur-md border border-[#F6CBC0] shadow-sm rounded-2xl p-6',
-    'accent-lavender': 'bg-[#F3EEF3]/80 backdrop-blur-md border border-[#DFD3DF] shadow-sm rounded-2xl p-6',
+    default: 'minimal-card p-6',
+    elevated: 'minimal-panel-elevated p-6 md:p-8',
+    subtle: 'bg-[var(--bg-panel)] border border-[var(--border-subtle)] shadow-sm rounded-2xl p-5',
+    patient: 'bg-[var(--bg-surface)] border-2 border-[var(--border-focus)] shadow-md rounded-3xl p-6 md:p-8 hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)] transition-all',
+    'accent-sage': 'bg-[var(--bg-panel)] border border-[var(--accent-emerald-subtle)] shadow-[var(--shadow-glow-cyan)] rounded-2xl p-6',
+    'accent-peach': 'bg-[var(--bg-panel)] border border-[var(--accent-orange-subtle)] shadow-[var(--shadow-glow-purple)] rounded-2xl p-6',
+    'accent-coral': 'bg-[var(--bg-panel)] border border-[var(--border-subtle)] shadow-[var(--shadow-glow-purple)] rounded-2xl p-6',
+    'accent-lavender': 'bg-[var(--bg-panel)] border border-[var(--accent-purple-subtle)] shadow-[var(--shadow-glow-cyan)] rounded-2xl p-6',
   };
 
   return (

@@ -2,46 +2,39 @@
 
 @layer base {
   :root {
-    --bg-main: #FAF7F2;
-    --bg-ivory: #FDFBF7;
-    --bg-cream: #F5EFEB;
-    --text-primary: #2C332D;
-    --text-secondary: #59655D;
-    --text-muted: #849188;
+    --bg-main: #06090E;
+    --bg-surface: #0D1117;
+    --bg-panel: #161B22;
+    --text-primary: #F0F6FC;
+    --text-secondary: #8B949E;
+    --text-muted: #484F58;
     
-    /* Warm Accessible Accents */
-    --accent-sage: #5B8266;
-    --accent-sage-light: #EBF2EC;
-    --accent-sage-dark: #3F5E47;
+    /* Neon Accents */
+    --accent-cyan: #00F0FF;
+    --accent-cyan-subtle: rgba(0, 240, 255, 0.1);
     
-    --accent-peach: #E78C56;
-    --accent-peach-light: #FDF1EA;
+    --accent-purple: #8A2BE2;
+    --accent-purple-subtle: rgba(138, 43, 226, 0.1);
     
-    --accent-coral: #D9654B;
-    --accent-coral-light: #FDEEEA;
-    
-    --accent-lavender: #8E778E;
-    --accent-lavender-light: #F3EEF3;
-    
-    --accent-terracotta: #B85D43;
-    --accent-amber: #D9A036;
-    --accent-amber-light: #FEF6E7;
-    
-    /* Glass tokens */
-    --glass-bg: rgba(255, 255, 255, 0.76);
-    --glass-bg-subtle: rgba(255, 255, 255, 0.55);
-    --glass-bg-elevated: rgba(255, 255, 255, 0.90);
-    --glass-border: rgba(255, 255, 255, 0.85);
-    --glass-border-warm: rgba(226, 218, 206, 0.65);
-    --glass-shadow: 0 10px 30px -5px rgba(60, 50, 40, 0.06), 0 4px 12px -2px rgba(60, 50, 40, 0.03);
-    --glass-shadow-elevated: 0 20px 40px -10px rgba(60, 50, 40, 0.09), 0 8px 20px -4px rgba(60, 50, 40, 0.04);
+    --accent-emerald: #00FF88;
+    --accent-emerald-subtle: rgba(0, 255, 136, 0.1);
+
+    --accent-orange: #FF7300;
+    --accent-orange-subtle: rgba(255, 115, 0, 0.1);
+
+    /* Minimalist tokens */
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-focus: rgba(255, 255, 255, 0.2);
+    --shadow-glow-cyan: 0 0 15px rgba(0, 240, 255, 0.3);
+    --shadow-glow-purple: 0 0 15px rgba(138, 43, 226, 0.3);
+    --shadow-minimal: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 }
 
 body {
   background-color: var(--bg-main);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Algerian', serif;
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -49,69 +42,70 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Glassmorphic classes */
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+/* Minimalist Panel Classes (Replacing Glassmorphism) */
+.glass-panel, .minimal-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-minimal);
+  border-radius: 20px;
+}
+
+.glass-panel-elevated, .minimal-panel-elevated {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-focus);
+  box-shadow: var(--shadow-glow-cyan);
   border-radius: 24px;
 }
 
-.glass-panel-elevated {
-  background: var(--glass-bg-elevated);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow-elevated);
-  border-radius: 28px;
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border-warm);
-  box-shadow: var(--glass-shadow);
-  border-radius: 22px;
+.glass-card, .minimal-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-minimal);
+  border-radius: 16px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-card:hover {
+.glass-card:hover, .minimal-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--glass-shadow-elevated);
-  border-color: rgba(91, 130, 102, 0.3);
+  border-color: var(--accent-cyan);
+  box-shadow: var(--shadow-glow-cyan);
 }
 
-.glass-button {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid var(--glass-border-warm);
-  box-shadow: 0 2px 6px rgba(60, 50, 40, 0.04);
-  border-radius: 16px;
+.glass-button, .minimal-button {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  border-radius: 12px;
   transition: all 0.2s ease;
 }
 
-.glass-button:hover {
-  background: #ffffff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(60, 50, 40, 0.08);
+.glass-button:hover, .minimal-button:hover {
+  background: var(--bg-panel);
+  border-color: var(--accent-purple);
+  box-shadow: var(--shadow-glow-purple);
 }
 
-/* Patient Tactile Elements */
+/* Patient Tactile Elements - Kept large but modernized */
 .patient-btn {
   min-height: 64px;
   min-width: 64px;
-  border-radius: 24px;
+  border-radius: 20px;
   font-size: 1.25rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 6px 16px rgba(60, 50, 40, 0.06);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
   cursor: pointer;
   user-select: none;
+}
+
+.patient-btn:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--shadow-glow-cyan);
 }
 
 .patient-btn:active {
@@ -122,7 +116,7 @@ body {
 @keyframes softPulse {
   0%, 100% {
     transform: scale(1);
-    opacity: 0.9;
+    opacity: 0.8;
   }
   50% {
     transform: scale(1.05);
@@ -139,12 +133,12 @@ body {
   }
 }
 
-@keyframes warmBreathe {
+@keyframes neonBreathe {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(91, 130, 102, 0.25);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
   }
   50% {
-    box-shadow: 0 0 35px rgba(231, 140, 86, 0.35);
+    box-shadow: 0 0 25px rgba(138, 43, 226, 0.3);
   }
 }
 
@@ -156,22 +150,22 @@ body {
   animation: gentleFloat 4s ease-in-out infinite;
 }
 
-.animate-warm-breathe {
-  animation: warmBreathe 4s ease-in-out infinite;
+.animate-warm-breathe, .animate-neon-breathe {
+  animation: neonBreathe 4s ease-in-out infinite;
 }
 
-/* Custom Scrollbar for Warm Aesthetics */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(245, 239, 235, 0.6);
+  background: var(--bg-main);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(180, 170, 160, 0.4);
+  background: var(--border-focus);
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(140, 130, 120, 0.6);
+  background: var(--text-secondary);
 }

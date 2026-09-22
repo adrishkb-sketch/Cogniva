@@ -20,11 +20,11 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
   const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 active:scale-98 disabled:opacity-50 disabled:pointer-events-none cursor-pointer';
 
   const variantStyles = {
-    primary: 'bg-[#5B8266] text-white hover:bg-[#4D7056] shadow-sm hover:shadow-md border border-[#4D7056]/30',
-    secondary: 'bg-white/85 text-[#2C332D] hover:bg-white border border-[#E0D8CC] shadow-sm hover:shadow',
-    patient: 'bg-[#5B8266] text-white hover:bg-[#4D7056] border-2 border-[#3E5C46] shadow-md hover:shadow-lg font-semibold tracking-wide min-h-[64px]',
-    emergency: 'bg-[#D9654B] text-white hover:bg-[#C2543B] border-2 border-[#A8422B] shadow-md font-bold text-lg',
-    ghost: 'bg-transparent text-[#59655D] hover:bg-black/5 border-transparent'
+    primary: 'bg-[var(--bg-surface)] text-[var(--accent-cyan)] hover:bg-[var(--bg-panel)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)]',
+    secondary: 'bg-[var(--bg-panel)] text-[var(--text-primary)] hover:border-[var(--accent-purple)] hover:shadow-[var(--shadow-glow-purple)] border border-[var(--border-subtle)]',
+    patient: 'bg-[var(--bg-panel)] text-[var(--text-primary)] hover:border-[var(--accent-cyan)] hover:shadow-[var(--shadow-glow-cyan)] border-2 border-[var(--border-focus)] font-semibold tracking-wide min-h-[64px]',
+    emergency: 'bg-[var(--bg-surface)] text-[#FF4444] hover:bg-[#2A0000] border-2 border-[#AA0000] shadow-md font-bold text-lg',
+    ghost: 'bg-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] border-transparent'
   };
 
   const sizeStyles = {

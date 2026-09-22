@@ -4,6 +4,7 @@ import { DemoModeBar } from "@/components/shared/DemoModeBar";
 import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/shared/Footer";
 import { NERStateProvider } from "@/components/shared/NERStateContext";
+import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 
 export const metadata: Metadata = {
   title: "Cogniva — Cognitive Rehabilitation & Daily-Life Memory Companion (NER)",
@@ -16,8 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full bg-[#FAF7F2] text-[#2C332D]">
-      <body className="min-h-screen flex flex-col antialiased bg-[#FAF7F2]">
+    <html lang="en" className="h-full bg-[var(--bg-main)] text-[var(--text-primary)]">
+      <body className="min-h-screen flex flex-col antialiased bg-[var(--bg-main)]">
+        <AnimatedBackground />
         <NERStateProvider>
           <DemoModeBar />
           <Navbar />
