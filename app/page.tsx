@@ -22,21 +22,15 @@ import {
 import { GlassCard } from '@/components/ui/GlassCard';
 import { GlassButton } from '@/components/ui/GlassButton';
 import { AIOrb } from '@/components/ui/AIOrb';
-import { MemorySphere } from '@/components/ui/MemorySphere';
+import { BackgroundAnimation } from '@/components/ui/BackgroundAnimation';
 
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-transparent text-[var(--text-primary)] overflow-hidden">
       {/* HERO SECTION */}
       <section className="relative flex flex-col items-center justify-center min-h-[90vh] px-4 sm:px-6 lg:px-8 w-full text-center overflow-hidden">
-        {/* Subtle Background Elements */}
-        <div className="absolute top-10 left-1/4 w-[500px] h-[500px] rounded-full bg-[var(--accent-cyan-subtle)] blur-3xl opacity-10 -z-10 pointer-events-none" />
-        <div className="absolute top-40 right-1/4 w-[500px] h-[500px] rounded-full bg-[var(--accent-purple-subtle)] blur-3xl opacity-10 -z-10 pointer-events-none" />
-
-        {/* Huge Background Memory Sphere */}
-        <div className="absolute inset-0 flex items-center justify-center z-0 scale-125 md:scale-150 opacity-40 mix-blend-screen pointer-events-none mt-20">
-          <MemorySphere />
-        </div>
+        {/* Animated Background */}
+        <BackgroundAnimation showWave={true} />
 
         <div className="relative z-10 flex flex-col items-center justify-center space-y-10 max-w-5xl mt-10">
           <motion.div 
