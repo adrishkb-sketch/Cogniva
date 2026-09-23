@@ -8,6 +8,8 @@ import { VoiceService } from '@/lib/voice/voice-service';
 import { MemoryGroundingService } from '@/lib/ai/memory-grounding';
 import { Mic, MicOff, Volume2, Sparkles, Heart } from 'lucide-react';
 
+import { getGeminiAuthHeaders } from '@/lib/ai/ai-key';
+
 export default function TalkCompanionPage() {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -19,7 +21,7 @@ export default function TalkCompanionPage() {
   ]);
   const [inputText, setInputText] = useState('');
 
-  const handleSend = (text: string) => {
+  const handleSend = async (text: string) => {
     if (!text.trim()) return;
 
     const userMsg = text.trim();
@@ -29,17 +31,38 @@ export default function TalkCompanionPage() {
     const updatedHistory = [...chatHistory, { role: 'user' as const, text: userMsg }];
     setChatHistory(updatedHistory);
 
-    // Grounded memory response
-    const grounded = MemoryGroundingService.queryVerifiedMemory(userMsg);
-    const aiResponse = grounded.found 
-      ? grounded.verifiedAnswer 
-      : `That sounds very comforting, Anima. Tell me more about what you enjoyed doing on your veranda in Jorhat.`;
+    try {
+      const res = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: getGeminiAuthHeaders(),
+        body: JSON.stringify({ prompt: userMsg, patientName: 'Anima', region: 'Assam' })
+      });
 
-    setTimeout(() => {
+      let aiResponse = '';
+      if (res.ok) {
+        const data = await res.json();
+        aiResponse = data.content;
+      }
+
+      if (!aiResponse) {
+        const grounded = MemoryGroundingService.queryVerifiedMemory(userMsg);
+        aiResponse = grounded.found
+          ? grounded.verifiedAnswer
+          : `That sounds very comforting, Anima. Tell me more about what you enjoyed doing on your veranda in Jorhat.`;
+      }
+
       setChatHistory(prev => [...prev, { role: 'ai' as const, text: aiResponse }]);
       setIsSpeaking(true);
       VoiceService.speak(aiResponse, 'en-IN', () => setIsSpeaking(false));
-    }, 600);
+    } catch {
+      const grounded = MemoryGroundingService.queryVerifiedMemory(userMsg);
+      const fallbackMsg = grounded.found
+        ? grounded.verifiedAnswer
+        : `That sounds very comforting, Anima. Tell me more about what you enjoyed doing on your veranda in Jorhat.`;
+      setChatHistory(prev => [...prev, { role: 'ai' as const, text: fallbackMsg }]);
+      setIsSpeaking(true);
+      VoiceService.speak(fallbackMsg, 'en-IN', () => setIsSpeaking(false));
+    }
   };
 
   const toggleMic = () => {

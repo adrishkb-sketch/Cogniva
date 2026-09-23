@@ -7,6 +7,8 @@ import { CaregiverCopilotService, CopilotResponse } from '@/lib/ai/caregiver-cop
 import { Bot, Sparkles, Send, ShieldCheck, CheckCircle2, MessageSquare, Info } from 'lucide-react';
 import { DEMO_PATIENT } from '@/lib/demo/demo-patient-anima';
 
+import { getGeminiAuthHeaders } from '@/lib/ai/ai-key';
+
 export default function CaregiverCopilotPage() {
   const [messages, setMessages] = useState<Array<{
     role: 'user' | 'assistant';
@@ -31,6 +33,28 @@ export default function CaregiverCopilotPage() {
     setIsLoading(true);
 
     try {
+      const res = await fetch('/api/ai/copilot', {
+        method: 'POST',
+        headers: getGeminiAuthHeaders(),
+        body: JSON.stringify({ question: userText })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.answer) {
+          setMessages(prev => [
+            ...prev,
+            {
+              role: 'assistant',
+              text: data.answer,
+              sourceMetrics: data.sourceMetrics || ['Verified Patient Baselines']
+            }
+          ]);
+          return;
+        }
+      }
+
+      // Fallback
       const response = await CaregiverCopilotService.askQuestion(userText);
       setMessages(prev => [
         ...prev,
@@ -41,12 +65,13 @@ export default function CaregiverCopilotPage() {
         }
       ]);
     } catch {
+      const response = await CaregiverCopilotService.askQuestion(userText);
       setMessages(prev => [
         ...prev,
         {
           role: 'assistant',
-          text: 'Cogniva Copilot is securely operating in local mode with verified patient baselines.',
-          sourceMetrics: ['Local Baseline Store']
+          text: response.answer,
+          sourceMetrics: response.sourceMetrics
         }
       ]);
     } finally {

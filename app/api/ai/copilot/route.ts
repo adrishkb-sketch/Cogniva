@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 
     const copilotResult = await CaregiverCopilotService.askQuestion(question);
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = req.headers.get('x-gemini-key') || body.apiKey || process.env.GEMINI_API_KEY;
 
     if (apiKey && SafetyEngine.sanitize(question).isSafe) {
       try {

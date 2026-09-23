@@ -6,6 +6,8 @@ import { GlassButton } from '@/components/ui/GlassButton';
 import { DEMO_PEOPLE, DEMO_PLACES, DEMO_OBJECTS } from '@/lib/demo/demo-patient-anima';
 import { Plus, Heart, MapPin, Sparkles, CheckCircle2, Volume2, Image, ShieldCheck, Upload, Bot } from 'lucide-react';
 
+import { getGeminiAuthHeaders } from '@/lib/ai/ai-key';
+
 export default function CaregiverMemoriesPage() {
   const [people, setPeople] = useState(DEMO_PEOPLE);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -23,7 +25,7 @@ export default function CaregiverMemoriesPage() {
     try {
       const res = await fetch('/api/ai/vision', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getGeminiAuthHeaders(),
         body: JSON.stringify({ imageBase64: 'sample_photo' })
       });
       const data = await res.json();

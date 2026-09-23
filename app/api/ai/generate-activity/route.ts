@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 
     const pack = ALL_NER_PACKS[stateId] || ALL_NER_PACKS.assam;
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = req.headers.get('x-gemini-key') || body.apiKey || process.env.GEMINI_API_KEY;
 
     if (apiKey) {
       try {

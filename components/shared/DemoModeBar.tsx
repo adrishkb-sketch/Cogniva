@@ -8,10 +8,12 @@ import { OfflineStorageManager } from '@/lib/storage/indexed-db';
 import { NERStateSwitcher } from './NERStateSwitcher';
 import { AlgorithmInspectorModal } from './AlgorithmInspectorModal';
 import { AIConfigModal } from './AIConfigModal';
+import { hasCustomGeminiKey, GEMINI_KEY_EVENT } from '@/lib/ai/ai-key';
 
 export const DemoModeBar: React.FC = () => {
   const pathname = usePathname();
   const [isOffline, setIsOffline] = useState(false);
+  const [hasCustomKey, setHasCustomKey] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
   const [isAIConfigOpen, setIsAIConfigOpen] = useState(false);
@@ -19,13 +21,22 @@ export const DemoModeBar: React.FC = () => {
   useEffect(() => {
     setMounted(true);
     setIsOffline(OfflineStorageManager.isSimulatedOffline());
+    setHasCustomKey(hasCustomGeminiKey());
 
     const handleNetworkChange = (e: any) => {
       setIsOffline(e.detail?.offline ?? false);
     };
 
+    const handleKeyChange = (e: any) => {
+      setHasCustomKey(!!e.detail?.apiKey);
+    };
+
     window.addEventListener('cogniva-network-change', handleNetworkChange);
-    return () => window.removeEventListener('cogniva-network-change', handleNetworkChange);
+    window.addEventListener(GEMINI_KEY_EVENT, handleKeyChange);
+    return () => {
+      window.removeEventListener('cogniva-network-change', handleNetworkChange);
+      window.removeEventListener(GEMINI_KEY_EVENT, handleKeyChange);
+    };
   }, []);
 
   const toggleOffline = () => {
@@ -65,11 +76,15 @@ export const DemoModeBar: React.FC = () => {
           {/* AI Key Config Button */}
           <button
             onClick={() => setIsAIConfigOpen(true)}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white font-medium text-[11px] border border-white/10 transition-colors cursor-pointer"
-            title="Configure Google Gemini API Key"
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-medium text-[11px] border transition-all cursor-pointer ${
+              hasCustomKey
+                ? 'bg-[var(--accent-orange)]/20 text-orange-200 border-[var(--accent-orange)]/40 hover:bg-[var(--accent-orange)]/30'
+                : 'bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] hover:text-white border-white/10'
+            }`}
+            title="Configure / Paste Google Gemini API Key"
           >
-            <Key className="w-3 h-3 text-[var(--accent-orange)]" />
-            <span className="hidden md:inline">AI Keys</span>
+            <Key className={`w-3 h-3 ${hasCustomKey ? 'text-amber-400' : 'text-[var(--accent-orange)]'}`} />
+            <span>{hasCustomKey ? 'Gemini Key: Active' : 'AI Keys'}</span>
           </button>
 
           {/* Network Toggle */}

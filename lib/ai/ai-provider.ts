@@ -1,3 +1,5 @@
+import { getStoredGeminiKey } from './ai-key';
+
 export interface AICompletionRequest {
   systemPrompt: string;
   userPrompt: string;
@@ -20,7 +22,7 @@ export class GeminiProvider implements IAIProvider {
   private apiKey: string;
 
   constructor(apiKey?: string) {
-    this.apiKey = apiKey || process.env.GEMINI_API_KEY || '';
+    this.apiKey = apiKey || getStoredGeminiKey() || process.env.GEMINI_API_KEY || '';
   }
 
   async generateCompletion(request: AICompletionRequest): Promise<AICompletionResponse> {

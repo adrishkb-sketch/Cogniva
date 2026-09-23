@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const groundedResult = MemoryGroundingService.queryVerifiedMemory(prompt);
 
     // 3. Connect to Gemini 1.5 Flash API if key exists
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = req.headers.get('x-gemini-key') || body.apiKey || process.env.GEMINI_API_KEY;
 
     if (apiKey) {
       try {
