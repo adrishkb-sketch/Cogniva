@@ -35,9 +35,9 @@
     --bg-main: #F8FAFC;
     --bg-surface: #FFFFFF;
     --bg-panel: #F1F5F9;
-    --text-primary: #0F172A;
-    --text-secondary: #475569;
-    --text-muted: #94A3B8;
+    --text-primary: #000000;
+    --text-secondary: #1F2937;
+    --text-muted: #4B5563;
     
     /* Neon Accents remain mostly the same to keep the cyan wave cyan */
     --accent-cyan: #00BCD4; /* slightly deeper for light background visibility */
