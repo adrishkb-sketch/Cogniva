@@ -6,7 +6,7 @@ Built with **Next.js 16 (App Router)**, **Tailwind CSS v4**, **TypeScript**, and
 
 ---
 
-## 🚀 Quick Start (Local Development)
+## Quick Start (Local Development)
 
 ### 1. Clone & Install Dependencies
 
@@ -45,7 +45,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🌐 Deploy to Vercel (Serverless)
+## Deploy to Vercel (Serverless)
 
 Cogniva is configured for 1-click zero-config serverless deployment on Vercel.
 
@@ -69,7 +69,7 @@ vercel
 
 ---
 
-## 📁 Project Architecture & Structure
+## Project Architecture & Structure
 
 ```
 Cogniva/
@@ -108,7 +108,7 @@ Cogniva/
 
 ---
 
-## 🛡️ Built-in AI Safety & Grounding
+## Built-in AI Safety & Grounding
 
 - **Memory Grounding**: Strict fact checking against family-verified memories before responding.
 - **Safety Engine**: Real-time moderation filtering out diagnostic advice, distress triggers, and medical prescriptions.
@@ -116,6 +116,6 @@ Cogniva/
 
 ---
 
-## 📜 License
+## License
 
 MIT License. Designed with care for cognitive wellness.
